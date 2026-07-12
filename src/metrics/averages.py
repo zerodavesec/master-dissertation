@@ -147,8 +147,6 @@ class Averages:
     # ----------------------------------------------------------------
 
     # ----------------------------Rule Type------------------------------------
-    @property
-    def general_micro_average_rule_type(self) -> RuleTypeMetricsDict: ...
 
     @property
     def general_macro_average_rule_type(self) -> AveragesDict:
@@ -157,13 +155,26 @@ class Averages:
         )
 
     @property
+    def non_targeted_testing_macro_average_rule_type(self) -> AveragesDict:
+        return self.__calculate_averages(
+            average_flag=AverageFlag.MACRO,
+            category_flag=CategoryFlag.RULE_TYPE,
+            testing_flag=TestingFlag.NON_TARGETED_TESTING,
+        )
+
+    @property
+    def targeted_testing_macro_average_rule_type(self) -> AveragesDict:
+        return self.__calculate_averages(
+            average_flag=AverageFlag.MACRO,
+            category_flag=CategoryFlag.RULE_TYPE,
+            testing_flag=TestingFlag.TARGETED_TESTING,
+        )
+
+    @property
+    def general_micro_average_rule_type(self) -> RuleTypeMetricsDict: ...
+
+    @property
     def targeted_testing_micro_average_rule_type(self) -> RuleTypeMetricsDict: ...
-
-    @property
-    def targeted_testing_macro_average_rule_type(self) -> RuleTypeMetricsDict: ...
-
-    @property
-    def non_targeted_testing_macro_average_rule_type(self) -> RuleTypeMetricsDict: ...
 
     @property
     def non_targeted_testing_micro_average_rule_type(self) -> RuleTypeMetricsDict: ...
@@ -460,10 +471,103 @@ class Averages:
                             ),
                         }
                 return metrics_dict
+
             case TestingFlag.NON_TARGETED_TESTING:
-                ...
+                for key, value in mapping.items():
+                    individual_values: dict[str, dict[str, int]] = (
+                        self.df.loc[
+                            (self.df["Rule Type"] == value)
+                            & (
+                                self.df["Testing Type"]
+                                == TestingFlag.NON_TARGETED_TESTING
+                            ),
+                            [
+                                "ID",
+                                "True Positives (TP)",
+                                "False Positives (FP)",
+                                "False Negatives (FN)",
+                            ],
+                        ]
+                        .set_index("ID")
+                        .to_dict(orient="index")
+                    )
+
+                    precision_list: list[Decimal] = []
+                    recall_list: list[Decimal] = []
+                    f1_score_list: list[Decimal] = []
+                    false_negative_rate_list: list[Decimal] = []
+                    for item in individual_values:
+                        metric: Metrics = Metrics(
+                            tp=individual_values[item]["True Positives (TP)"],
+                            fp=individual_values[item]["False Positives (FP)"],
+                            fn=individual_values[item]["False Negatives (FN)"],
+                        )
+                        precision_list.append(metric.precision)
+                        recall_list.append(metric.recall)
+                        f1_score_list.append(metric.f1_score)
+                        false_negative_rate_list.append(metric.false_negative_rate)
+
+                        metrics_dict[key] = {
+                            "recall": Decimal(sum(recall_list) / len(recall_list)),
+                            "precision": Decimal(
+                                sum(precision_list) / len(precision_list)
+                            ),
+                            "f1_score": Decimal(
+                                sum(f1_score_list) / len(f1_score_list)
+                            ),
+                            "false_negative_rate": Decimal(
+                                sum(false_negative_rate_list)
+                                / len(false_negative_rate_list)
+                            ),
+                        }
+                return metrics_dict
+
             case TestingFlag.TARGETED_TESTING:
-                ...
+                for key, value in mapping.items():
+                    individual_values: dict[str, dict[str, int]] = (
+                        self.df.loc[
+                            (self.df["Rule Type"] == value)
+                            & (self.df["Testing Type"] == TestingFlag.TARGETED_TESTING),
+                            [
+                                "ID",
+                                "True Positives (TP)",
+                                "False Positives (FP)",
+                                "False Negatives (FN)",
+                            ],
+                        ]
+                        .set_index("ID")
+                        .to_dict(orient="index")
+                    )
+
+                    precision_list: list[Decimal] = []
+                    recall_list: list[Decimal] = []
+                    f1_score_list: list[Decimal] = []
+                    false_negative_rate_list: list[Decimal] = []
+                    for item in individual_values:
+                        metric: Metrics = Metrics(
+                            tp=individual_values[item]["True Positives (TP)"],
+                            fp=individual_values[item]["False Positives (FP)"],
+                            fn=individual_values[item]["False Negatives (FN)"],
+                        )
+                        precision_list.append(metric.precision)
+                        recall_list.append(metric.recall)
+                        f1_score_list.append(metric.f1_score)
+                        false_negative_rate_list.append(metric.false_negative_rate)
+
+                        metrics_dict[key] = {
+                            "recall": Decimal(sum(recall_list) / len(recall_list)),
+                            "precision": Decimal(
+                                sum(precision_list) / len(precision_list)
+                            ),
+                            "f1_score": Decimal(
+                                sum(f1_score_list) / len(f1_score_list)
+                            ),
+                            "false_negative_rate": Decimal(
+                                sum(false_negative_rate_list)
+                                / len(false_negative_rate_list)
+                            ),
+                        }
+                return metrics_dict
 
         raise ValueError
 
@@ -490,11 +594,15 @@ class Averages:
 if __name__ == "__main__":
     df = pd.read_csv("/Users/zerodave/Documents/Dissertation.csv")
     averages = Averages(df)
-    print(json.dumps(averages.general_macro_average_gen_method, default=float))
-    print(
-        json.dumps(
-            averages.non_targeted_testing_macro_average_gen_method, default=float
-        )
-    )
-    print(json.dumps(averages.targeted_testing_macro_average_gen_method, default=float))
+    # print(json.dumps(averages.general_macro_average_gen_method, default=float))
+    # print(
+    #     json.dumps(
+    #         averages.non_targeted_testing_macro_average_gen_method, default=float
+    #     )
+    # )
+    # print(json.dumps(averages.targeted_testing_macro_average_gen_method, default=float))
     print(json.dumps(averages.general_macro_average_rule_type, default=float))
+    print(
+        json.dumps(averages.non_targeted_testing_macro_average_rule_type, default=float)
+    )
+    print(json.dumps(averages.targeted_testing_macro_average_rule_type, default=float))
