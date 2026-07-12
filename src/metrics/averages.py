@@ -329,19 +329,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[key] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[key] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
             case TestingFlag.NON_TARGETED_TESTING:
@@ -376,19 +372,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[key] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[key] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
             case TestingFlag.TARGETED_TESTING:
@@ -423,19 +415,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[key] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[key] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                     return metrics_dict
 
         raise ValueError
@@ -479,19 +467,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[key] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[key] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
             case TestingFlag.NON_TARGETED_TESTING:
@@ -526,19 +510,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[key] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[key] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
             case TestingFlag.TARGETED_TESTING:
@@ -573,19 +553,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[key] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[key] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
         raise ValueError
@@ -629,19 +605,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[mal_type] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[mal_type] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
             case TestingFlag.NON_TARGETED_TESTING:
                 for mal_type in unique_malware_type:
@@ -675,19 +647,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[mal_type] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[mal_type] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
             case TestingFlag.TARGETED_TESTING:
@@ -722,19 +690,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[mal_type] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[mal_type] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
         raise ValueError
@@ -779,19 +743,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[mal_family] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[mal_family] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
             case TestingFlag.NON_TARGETED_TESTING:
                 for mal_family in unique_malware_family:
@@ -825,19 +785,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[mal_family] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[mal_family] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
             case TestingFlag.TARGETED_TESTING:
@@ -872,19 +828,15 @@ class Averages:
                         f1_score_list.append(metric.f1_score)
                         false_negative_rate_list.append(metric.false_negative_rate)
 
-                        metrics_dict[mal_family] = {
-                            "recall": Decimal(sum(recall_list) / len(recall_list)),
-                            "precision": Decimal(
-                                sum(precision_list) / len(precision_list)
-                            ),
-                            "f1_score": Decimal(
-                                sum(f1_score_list) / len(f1_score_list)
-                            ),
-                            "false_negative_rate": Decimal(
-                                sum(false_negative_rate_list)
-                                / len(false_negative_rate_list)
-                            ),
-                        }
+                    metrics_dict[mal_family] = {
+                        "recall": Decimal(sum(recall_list) / len(recall_list)),
+                        "precision": Decimal(sum(precision_list) / len(precision_list)),
+                        "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                        "false_negative_rate": Decimal(
+                            sum(false_negative_rate_list)
+                            / len(false_negative_rate_list)
+                        ),
+                    }
                 return metrics_dict
 
         raise ValueError
