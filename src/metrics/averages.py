@@ -65,6 +65,8 @@ class RuleTypeMetricsDict(TypedDict):
 
 AveragesDict = GenMethodMetricsDict | RuleTypeMetricsDict | dict[str, MetricsDict]
 
+GroupedAveragesDict = dict[str, RuleTypeMetricsDict]
+
 
 class AverageFlag(StrEnum):
     MACRO = "macro"
@@ -133,15 +135,6 @@ class Averages:
             testing_flag=TestingFlag.TARGETED_TESTING,
         )
 
-    @property
-    def general_micro_average_gen_method(self) -> GenMethodMetricsDict: ...
-
-    @property
-    def targeted_testing_micro_average_gen_method(self) -> GenMethodMetricsDict: ...
-
-    @property
-    def non_targeted_testing_micro_average_gen_method(self) -> GenMethodMetricsDict: ...
-
     # ----------------------------------------------------------------
 
     # ----------------------------Rule Type------------------------------------
@@ -168,15 +161,6 @@ class Averages:
             testing_flag=TestingFlag.TARGETED_TESTING,
         )
 
-    @property
-    def general_micro_average_rule_type(self) -> AveragesDict: ...
-
-    @property
-    def targeted_testing_micro_average_rule_type(self) -> AveragesDict: ...
-
-    @property
-    def non_targeted_testing_micro_average_rule_type(self) -> AveragesDict: ...
-
     # ----------------------------------------------------------------
     # -----------------------------Malware Type---------------------------------
 
@@ -201,15 +185,6 @@ class Averages:
             category_flag=CategoryFlag.MALWARE_TYPE,
             testing_flag=TestingFlag.TARGETED_TESTING,
         )
-
-    @property
-    def general_micro_average_mal_type(self) -> dict: ...
-
-    @property
-    def non_targeted_testing_micro_average_mal_type(self) -> dict: ...
-
-    @property
-    def targeted_testing_micro_average_mal_type(self) -> dict: ...
 
     # ----------------------------------------------------------------
     # -----------------------------Malware family---------------------------------
@@ -236,16 +211,66 @@ class Averages:
             testing_flag=TestingFlag.TARGETED_TESTING,
         )
 
-    @property
-    def general_micro_average_mal_family(self) -> dict: ...
-
-    @property
-    def non_targeted_testing_micro_average_mal_family(self) -> dict: ...
-
-    @property
-    def targeted_testing_micro_average_mal_family(self) -> dict: ...
-
     # ---------------------------------------------------------------------
+
+    @property
+    def general_macro_average_rule_type_and_gen_method(self) -> GroupedAveragesDict:
+        return self.__calculate_macro_averages_rule_type_and_gen_method()
+
+    def __calculate_macro_averages_rule_type_and_gen_method(self) -> ...:
+        metrics_dict: GenMethodMetricsDict = {}  # type: ignore
+        mapping_gen = {
+            "manual": "MAN",
+            "manual_ai": "MAI",
+            "automated": "AUT",
+            "automated_ai": "AI",
+        }
+        mapping_type = {"detection": "DET", "correlation": "CORR"}
+
+        for key_gen, value_gen in mapping_gen.items():
+            metrics_dict[key_gen] = {}
+            for key_type, value_type in mapping_type.items():
+                individual_values: dict[str, dict[str, int]] = (
+                    self.df.loc[
+                        (
+                            (self.df["Rule Generation Method"] == value_gen)
+                            & (self.df["Rule Type"] == value_type)
+                        ),
+                        [
+                            "ID",
+                            "True Positives (TP)",
+                            "False Positives (FP)",
+                            "False Negatives (FN)",
+                        ],
+                    ]
+                    .set_index("ID")
+                    .to_dict(orient="index")
+                )
+
+                precision_list: list[Decimal] = []
+                recall_list: list[Decimal] = []
+                f1_score_list: list[Decimal] = []
+                false_negative_rate_list: list[Decimal] = []
+                for item in individual_values:
+                    metric: Metrics = Metrics(
+                        tp=individual_values[item]["True Positives (TP)"],
+                        fp=individual_values[item]["False Positives (FP)"],
+                        fn=individual_values[item]["False Negatives (FN)"],
+                    )
+                    precision_list.append(metric.precision)
+                    recall_list.append(metric.recall)
+                    f1_score_list.append(metric.f1_score)
+                    false_negative_rate_list.append(metric.false_negative_rate)
+
+                metrics_dict[key_gen][key_type] = {
+                    "recall": Decimal(sum(recall_list) / len(recall_list)),
+                    "precision": Decimal(sum(precision_list) / len(precision_list)),
+                    "f1_score": Decimal(sum(f1_score_list) / len(f1_score_list)),
+                    "false_negative_rate": Decimal(
+                        sum(false_negative_rate_list) / len(false_negative_rate_list)
+                    ),
+                }
+        return metrics_dict
 
     def __calculate_averages(
         self,
@@ -878,10 +903,14 @@ if __name__ == "__main__":
     #     json.dumps(averages.non_targeted_testing_macro_average_mal_type, default=float)
     # )
     # print(json.dumps(averages.targeted_testing_macro_average_mal_type, default=float))
-    print(json.dumps(averages.general_macro_average_mal_family, default=float))
+    # print(json.dumps(averages.general_macro_average_mal_family, default=float))
+    # print(
+    #     json.dumps(
+    #         averages.non_targeted_testing_macro_average_mal_family, default=float
+    #     )
+    # )
     print(
         json.dumps(
-            averages.non_targeted_testing_macro_average_mal_family, default=float
+            averages.general_macro_average_rule_type_and_gen_method, default=float
         )
     )
-    print(json.dumps(averages.targeted_testing_macro_average_mal_family, default=float))
